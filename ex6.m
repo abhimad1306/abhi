@@ -1,0 +1,33 @@
+clc;
+close all;
+clear all;
+A=0.5;
+f=3000;
+Fs=8000;
+Ts=1/Fs;
+n=0:1:4*Fs/f;
+x=A*cos(2*pi*f*n*Ts);
+d1=myquantizer(x,8);
+d2=myquantizer(x,16);
+d3=myquantizer(x,32);
+d4=myquantizer(x,64);
+l=[8,16,32,64];
+mse1=mse(d1,x);
+mse2=mse(d2,x);
+mse3=mse(d3,x);
+mse4=mse(d4,x);
+b1=log(8)/log(2);
+b2=log(16)/log(2);
+b3=log(32)/log(2);
+b4=log(64)/log(2);
+sqnr1=1.76+ (6.02*b1);
+sqnr2=1.76+ (6.02*b2);
+sqnr3=1.76+ (6.02*b3);
+sqnr4=1.76+ (6.02*b4);
+m=[mse1,mse2,mse3,mse4]
+sqnr=[sqnr1,sqnr2,sqnr3,sqnr4];
+subplot(2,1,1);
+stem(l,sqnr);
+subplot(2,1,2);
+stem(l,m);
+
